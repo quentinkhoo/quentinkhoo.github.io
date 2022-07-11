@@ -7,19 +7,22 @@ enableRobotsTXT: true
 buildDrafts: false
 buildFuture: false
 buildExpired: false
+enableInlineShortcodes: true
+enableEmoji: true
+pygmentsUseClasses: true
 
-googleAnalytics: UA-123-45
+# googleAnalytics: UA-123-45
 
 minify:
   disableXML: true
-  minifyOutput: true
+  # minifyOutput: true
 
 params:
   env: production # to enable google analytics, opengraph, twitter-cards and schema.
-  title: ExampleSite
-  description: "ExampleSite description"
+  title: Quentin
+  description: "Quentin Khoo"
   keywords: [Blog, Portfolio, PaperMod]
-  author: Me
+  author: Quentin Khoo
   # author: ["Me", "You"] # multiple authors
   images: ["<link or path of image for opengraph, twitter-cards>"]
   DateFormat: "January 2, 2006"
@@ -30,7 +33,7 @@ params:
   ShowShareButtons: true
   ShowPostNavLinks: true
   ShowBreadCrumbs: true
-  ShowCodeCopyButtons: false
+  ShowCodeCopyButtons: true
   ShowWordCount: true
   ShowRssButtonInSectionTermList: true
   UseHugoToc: true
@@ -39,13 +42,13 @@ params:
   comments: false
   hidemeta: false
   hideSummary: false
-  showtoc: false
+  showtoc: true
   tocopen: false
 
   assets:
     # disableHLJS: true # to disable highlight.js
     # disableFingerprinting: true
-    favicon: "<link / abs url>"
+    favicon: /images/peepoclap.gif
     favicon16x16: "<link / abs url>"
     favicon32x32: "<link / abs url>"
     apple_touch_icon: "<link / abs url>"
@@ -53,8 +56,14 @@ params:
 
   label:
     text: "Home"
-    icon: /apple-touch-icon.png
+    icon: /images/peepoclap.gif
     iconHeight: 35
+
+  outputs:
+    home:
+        - HTML
+        - RSS
+        - JSON # is necessary
 
   # profile-mode
   profileMode:
@@ -73,8 +82,8 @@ params:
 
   # home-info mode
   homeInfoParams:
-    Title: "Hi there \U0001F44B"
-    Content: Welcome to my blog
+    Title: "Hi there \U0001F44B."
+    Content: Welcome to my blog. Feel free to contact me on my socials too!
 
   socialIcons:
     - name: twitter
@@ -83,14 +92,8 @@ params:
       url: "https://www.linkedin.com/in/quentin-khoo/"
     - name: github
       url: "https://github.com/quentinkhoo"
-
-  analytics:
-    google:
-      SiteVerificationTag: "XYZabc"
-    bing:
-      SiteVerificationTag: "XYZabc"
-    yandex:
-      SiteVerificationTag: "XYZabc"
+    - name: instagram
+      url: "https://instagram.com/quenteeen"
 
   cover:
     hidden: true # hide everywhere but not in structured data
@@ -98,7 +101,7 @@ params:
     hiddenInSingle: true # hide on single page
 
   editPost:
-    URL: "https://github.com/<path_to_repo>/content"
+    URL: "https://github.com/quentinkhoo/quentinkhoo.github.io/content"
     Text: "Suggest Changes" # edit text
     appendFilePath: true # to append file path to Edit link
 
@@ -114,22 +117,30 @@ params:
     keys: ["title", "permalink", "summary", "content"]
 menu:
   main:
+    - name: Archives
+      url: archives
+      weight: 10
     - identifier: categories
-      name: categories
+      name: Categories
       url: /categories/
       weight: 10
     - identifier: tags
-      name: tags
+      name: Tags
       url: /tags/
       weight: 20
-    - identifier: 
+    - name: Whoami
+      url: /about/
+      weight: 10
+    - name: Search
+      url: /search/
+      weight: 10
 # Read: https://github.com/adityatelange/hugo-PaperMod/wiki/FAQs#using-hugos-syntax-highlighter-chroma
 pygmentsUseClasses: true
 markup:
   highlight:
-    noClasses: false
+    noClasses: false 
     # anchorLineNos: true
-    # codeFences: true
-    # guessSyntax: true
-    # lineNos: true
-    # style: monokai
+    codeFences: true
+    guessSyntax: true
+    lineNos: true
+    style: monokai
