@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Tags on Quentin</title>
+    <link>https://quentinkhoo.github.io/tags/</link>
+    <description>Recent content in Tags on Quentin</description>
+    <image>
+      <url>https://quentinkhoo.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://quentinkhoo.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 03 Jul 2022 15:55:11 +0800</lastBuildDate><atom:link href="https://quentinkhoo.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>blockchain</title>
+      <link>https://quentinkhoo.github.io/tags/blockchain/</link>
+      <pubDate>Sun, 03 Jul 2022 15:55:11 +0800</pubDate>
+      
+      <guid>https://quentinkhoo.github.io/tags/blockchain/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ctf</title>
+      <link>https://quentinkhoo.github.io/tags/ctf/</link>
+      <pubDate>Sun, 03 Jul 2022 15:55:11 +0800</pubDate>
+      
+      <guid>https://quentinkhoo.github.io/tags/ctf/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>pseudorandomness</title>
+      <link>https://quentinkhoo.github.io/tags/pseudorandomness/</link>
+      <pubDate>Sun, 03 Jul 2022 15:55:11 +0800</pubDate>
+      
+      <guid>https://quentinkhoo.github.io/tags/pseudorandomness/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>re-entrancy</title>
+      <link>https://quentinkhoo.github.io/tags/re-entrancy/</link>
+      <pubDate>Sun, 03 Jul 2022 15:55:11 +0800</pubDate>
+      
+      <guid>https://quentinkhoo.github.io/tags/re-entrancy/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>seetf-2022</title>
+      <link>https://quentinkhoo.github.io/tags/seetf-2022/</link>
+      <pubDate>Sun, 03 Jul 2022 15:55:11 +0800</pubDate>
+      
+      <guid>https://quentinkhoo.github.io/tags/seetf-2022/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>smart-contracts</title>
+      <link>https://quentinkhoo.github.io/tags/smart-contracts/</link>
+      <pubDate>Sun, 03 Jul 2022 15:55:11 +0800</pubDate>
+      
+      <guid>https://quentinkhoo.github.io/tags/smart-contracts/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

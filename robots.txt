@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: https://quentinkhoo.github.io/sitemap.xml

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>pseudorandomness on Quentin</title>
+    <link>https://quentinkhoo.github.io/tags/pseudorandomness/</link>
+    <description>Recent content in pseudorandomness on Quentin</description>
+    <image>
+      <url>https://quentinkhoo.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://quentinkhoo.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 03 Jul 2022 15:55:11 +0800</lastBuildDate><atom:link href="https://quentinkhoo.github.io/tags/pseudorandomness/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>SEETF 2022 Smart Contract DuperSuperSafe</title>
+      <link>https://quentinkhoo.github.io/posts/seetf-2022-smart-contract-dupersupersafe/</link>
+      <pubDate>Sun, 03 Jul 2022 15:55:11 +0800</pubDate>
+      
+      <guid>https://quentinkhoo.github.io/posts/seetf-2022-smart-contract-dupersupersafe/</guid>
+      <description>DuperSuperSafe Challenge Description This was a smart-contract challenge that was part of the recent SEETF 2022 hosted by the Social Engineering Experts. I played this together under 3_Blind_Mice, a random team made together with @chuayupeng and ethon for pure fun and memes.
+Like all the other smart-contract challenges in this CTF, a vulnerable contract was deployed onto SEETF&amp;rsquo;s very own private blockchain network.
+Solving this challenge required knowing a concept in blockchain &amp;ndash;&amp;gt; that private variables in a contract are technically public and still readable, and also understanding the difference between tx.</description>
+    </item>
+    
+    <item>
+      <title>SEETF 2022 Smart Contract Challenge - RollsRoyce</title>
+      <link>https://quentinkhoo.github.io/posts/seetf-2022-smart-contract-rolls-royce/</link>
+      <pubDate>Sun, 03 Jul 2022 15:54:11 +0800</pubDate>
+      
+      <guid>https://quentinkhoo.github.io/posts/seetf-2022-smart-contract-rolls-royce/</guid>
+      <description>RollsRoyce Challenge Description This was a smart-contract challenge that was part of the recent SEETF 2022 hosted by the Social Engineering Experts. I played this together under 3_Blind_Mice, a random team made together with @chuayupeng and ethon for pure fun and memes.
+Like all the other smart-contract challenges in this CTF, a vulnerable contract was deployed onto SEETF&amp;rsquo;s very own private blockchain network.
+Solving this challenge required exploiting 2 vulnerabilities, a pseudorandomness vulnerability that leveraged on block.</description>
+    </item>
+    
+  </channel>
+</rss>
