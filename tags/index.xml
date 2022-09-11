@@ -9,11 +9,119 @@
       <link>https://quentinkhoo.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 12 Sep 2022 00:00:00 +0800</lastBuildDate><atom:link href="https://quentinkhoo.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 12 Sep 2022 00:05:00 +0800</lastBuildDate><atom:link href="https://quentinkhoo.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ctf</title>
+      <link>https://quentinkhoo.github.io/tags/ctf/</link>
+      <pubDate>Mon, 12 Sep 2022 00:05:00 +0800</pubDate>
+      
+      <guid>https://quentinkhoo.github.io/tags/ctf/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>dangling-markup-injection</title>
+      <link>https://quentinkhoo.github.io/tags/dangling-markup-injection/</link>
+      <pubDate>Mon, 12 Sep 2022 00:05:00 +0800</pubDate>
+      
+      <guid>https://quentinkhoo.github.io/tags/dangling-markup-injection/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>express</title>
+      <link>https://quentinkhoo.github.io/tags/express/</link>
+      <pubDate>Mon, 12 Sep 2022 00:05:00 +0800</pubDate>
+      
+      <guid>https://quentinkhoo.github.io/tags/express/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>html-injection</title>
+      <link>https://quentinkhoo.github.io/tags/html-injection/</link>
+      <pubDate>Mon, 12 Sep 2022 00:05:00 +0800</pubDate>
+      
+      <guid>https://quentinkhoo.github.io/tags/html-injection/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>http-request-smuggling</title>
+      <link>https://quentinkhoo.github.io/tags/http-request-smuggling/</link>
+      <pubDate>Mon, 12 Sep 2022 00:05:00 +0800</pubDate>
+      
+      <guid>https://quentinkhoo.github.io/tags/http-request-smuggling/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>mysql</title>
+      <link>https://quentinkhoo.github.io/tags/mysql/</link>
+      <pubDate>Mon, 12 Sep 2022 00:05:00 +0800</pubDate>
+      
+      <guid>https://quentinkhoo.github.io/tags/mysql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>nodejs</title>
+      <link>https://quentinkhoo.github.io/tags/nodejs/</link>
+      <pubDate>Mon, 12 Sep 2022 00:05:00 +0800</pubDate>
+      
+      <guid>https://quentinkhoo.github.io/tags/nodejs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>proxy</title>
+      <link>https://quentinkhoo.github.io/tags/proxy/</link>
+      <pubDate>Mon, 12 Sep 2022 00:05:00 +0800</pubDate>
+      
+      <guid>https://quentinkhoo.github.io/tags/proxy/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>sqli</title>
+      <link>https://quentinkhoo.github.io/tags/sqli/</link>
+      <pubDate>Mon, 12 Sep 2022 00:05:00 +0800</pubDate>
+      
+      <guid>https://quentinkhoo.github.io/tags/sqli/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tisc-2022</title>
+      <link>https://quentinkhoo.github.io/tags/tisc-2022/</link>
+      <pubDate>Mon, 12 Sep 2022 00:05:00 +0800</pubDate>
+      
+      <guid>https://quentinkhoo.github.io/tags/tisc-2022/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>traffic-server</title>
+      <link>https://quentinkhoo.github.io/tags/traffic-server/</link>
+      <pubDate>Mon, 12 Sep 2022 00:05:00 +0800</pubDate>
+      
+      <guid>https://quentinkhoo.github.io/tags/traffic-server/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>web</title>
+      <link>https://quentinkhoo.github.io/tags/web/</link>
+      <pubDate>Mon, 12 Sep 2022 00:05:00 +0800</pubDate>
+      
+      <guid>https://quentinkhoo.github.io/tags/web/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>aws</title>
       <link>https://quentinkhoo.github.io/tags/aws/</link>
-      <pubDate>Mon, 12 Sep 2022 00:00:00 +0800</pubDate>
+      <pubDate>Mon, 12 Sep 2022 00:04:00 +0800</pubDate>
       
       <guid>https://quentinkhoo.github.io/tags/aws/</guid>
       <description></description>
@@ -22,25 +130,16 @@
     <item>
       <title>cloud</title>
       <link>https://quentinkhoo.github.io/tags/cloud/</link>
-      <pubDate>Mon, 12 Sep 2022 00:00:00 +0800</pubDate>
+      <pubDate>Mon, 12 Sep 2022 00:04:00 +0800</pubDate>
       
       <guid>https://quentinkhoo.github.io/tags/cloud/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>ctf</title>
-      <link>https://quentinkhoo.github.io/tags/ctf/</link>
-      <pubDate>Mon, 12 Sep 2022 00:00:00 +0800</pubDate>
-      
-      <guid>https://quentinkhoo.github.io/tags/ctf/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>dynamodb</title>
       <link>https://quentinkhoo.github.io/tags/dynamodb/</link>
-      <pubDate>Mon, 12 Sep 2022 00:00:00 +0800</pubDate>
+      <pubDate>Mon, 12 Sep 2022 00:04:00 +0800</pubDate>
       
       <guid>https://quentinkhoo.github.io/tags/dynamodb/</guid>
       <description></description>
@@ -49,7 +148,7 @@
     <item>
       <title>ec2</title>
       <link>https://quentinkhoo.github.io/tags/ec2/</link>
-      <pubDate>Mon, 12 Sep 2022 00:00:00 +0800</pubDate>
+      <pubDate>Mon, 12 Sep 2022 00:04:00 +0800</pubDate>
       
       <guid>https://quentinkhoo.github.io/tags/ec2/</guid>
       <description></description>
@@ -58,7 +157,7 @@
     <item>
       <title>lambda</title>
       <link>https://quentinkhoo.github.io/tags/lambda/</link>
-      <pubDate>Mon, 12 Sep 2022 00:00:00 +0800</pubDate>
+      <pubDate>Mon, 12 Sep 2022 00:04:00 +0800</pubDate>
       
       <guid>https://quentinkhoo.github.io/tags/lambda/</guid>
       <description></description>
@@ -67,7 +166,7 @@
     <item>
       <title>rce</title>
       <link>https://quentinkhoo.github.io/tags/rce/</link>
-      <pubDate>Mon, 12 Sep 2022 00:00:00 +0800</pubDate>
+      <pubDate>Mon, 12 Sep 2022 00:04:00 +0800</pubDate>
       
       <guid>https://quentinkhoo.github.io/tags/rce/</guid>
       <description></description>
@@ -76,18 +175,9 @@
     <item>
       <title>s3</title>
       <link>https://quentinkhoo.github.io/tags/s3/</link>
-      <pubDate>Mon, 12 Sep 2022 00:00:00 +0800</pubDate>
+      <pubDate>Mon, 12 Sep 2022 00:04:00 +0800</pubDate>
       
       <guid>https://quentinkhoo.github.io/tags/s3/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>tisc-2022</title>
-      <link>https://quentinkhoo.github.io/tags/tisc-2022/</link>
-      <pubDate>Mon, 12 Sep 2022 00:00:00 +0800</pubDate>
-      
-      <guid>https://quentinkhoo.github.io/tags/tisc-2022/</guid>
       <description></description>
     </item>
     

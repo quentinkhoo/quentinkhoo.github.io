@@ -9,11 +9,20 @@
       <link>https://quentinkhoo.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 12 Sep 2022 00:00:00 +0800</lastBuildDate><atom:link href="https://quentinkhoo.github.io/tags/tisc-2022/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 12 Sep 2022 00:05:00 +0800</lastBuildDate><atom:link href="https://quentinkhoo.github.io/tags/tisc-2022/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>TISC 2022 Web Palindrome&#39;s Secret</title>
+      <link>https://quentinkhoo.github.io/posts/tisc-2022-web-palindrome-secret/</link>
+      <pubDate>Mon, 12 Sep 2022 00:05:00 +0800</pubDate>
+      
+      <guid>https://quentinkhoo.github.io/posts/tisc-2022-web-palindrome-secret/</guid>
+      <description>Palindrome&amp;rsquo;s Secret Challenge Description This was a Web challenge unlocked at level 5 that was part of the recent TISC 2022 CTF organised by CSIT. TISC 2022 was an individual CTF that is level-based and not exactly a typical jeopardy-style CTF, meaning that only 1 challenge is released at a time and only after you solve that 1 challenge do you unlock the next one. In this writeup, I will discuss my approach towards solving this particular web challenge.</description>
+    </item>
+    
     <item>
       <title>TISC 2022 Cloud Cloudynekos</title>
       <link>https://quentinkhoo.github.io/posts/tisc-2022-cloud-cloudynekos/</link>
-      <pubDate>Mon, 12 Sep 2022 00:00:00 +0800</pubDate>
+      <pubDate>Mon, 12 Sep 2022 00:04:00 +0800</pubDate>
       
       <guid>https://quentinkhoo.github.io/posts/tisc-2022-cloud-cloudynekos/</guid>
       <description>CloudyNekos Challenge Description This was a Cloud challenge unlocked at level 4 that was part of the recent TISC 2022 CTF organised by CSIT. TISC 2022 was an individual CTF that is level-based and not exactly a typical jeopardy-style CTF, meaning that only 1 challenge is released at a time and only after you solve that 1 challenge do you unlock the next one. In this writeup, I will discuss my approach towards solving this particular cloud challenge.</description>
