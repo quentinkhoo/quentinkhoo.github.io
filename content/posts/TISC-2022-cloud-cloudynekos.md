@@ -577,7 +577,7 @@ Based on this hint, it seems like the next step is to actually create and run an
 (During the actual CTF I actually created a reverse shell into the temporary Lambda instance. It was unnecessary but I thought it was cool to point out that it is indeed possible to execute arbitary code on the Lambda instance, and create a reverse shell although what you can do on the instance is kind of limited and for the purpose of this CTF, you really only want the temporary AWS IAM keys).
 
 ## Running an EC2 Instance
-At this junction, our goal is to not just run any EC2 instance, but if you recall earlier on, the `ec2_agent_role` has permissions to interat with the `dynamodb` service. Lett's take a look once again at what permissions the `lambda_development_agent_role` has:
+At this junction, our goal is to not just run any EC2 instance, but if you recall earlier on, the `ec2_agent_role` has permissions to interact with the `dynamodb` service. Let's take a look once again at what permissions the `lambda_development_agent_role` has:
 
 ```json
 {

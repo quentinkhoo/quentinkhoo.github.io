@@ -272,9 +272,9 @@ RUN chmod +r /opt/ts/etc/trafficserver/remap.config
 CMD ["/opt/ts/bin/traffic_manager"]
 ```
 
-Alright, it seems like we're using Apache Traffic Server 9.1.0 as the proxying software and googling around I eventually came across this [CVE](https://lists.apache.org/thread/rc64lwbdgrkv674koc3zl1sljr9vwg21) for it (which turns out to be similar to [SEETF 2022's](https://ctftime.org/event/1543) flagportal revenge challenge).
+Alright, it seems like we're using Apache Traffic Server 9.1.0 as the proxying software.
 
-Either way, let's inspect the `remap.config` configuration file for it:
+Let's inspect the `remap.config` configuration file for it:
 
 ```config
 map             /login          http://app:8000/login
@@ -287,4 +287,151 @@ map             /do-report      http://app:8000/forbidden
 regex_redirect  http://(.*)/    http://$1/index
 ```
 
-Indeed, as we can see from the config file any requests to `do-report` gets redirected to `/forbidden`. 
+Indeed, as we can see from the config file any requests to `do-report` gets redirected to `/forbidden`.
+
+At this point I started thinking, what can one do assumming a request to `POST /do-report` can be made? In `docker` environments, it is possible to directly `exec` into a container and run commands from it. Let's start running our application locally!
+
+We first run the entire application with `docker-compose up -d`
+
+We can then list out the available docker containers with `docker ps -a`:
+
+```bash
+└─$ docker ps -a                      
+CONTAINER ID   IMAGE           COMMAND                  CREATED      STATUS       PORTS                                   NAMES
+7c623c1e94c5   mysql           "docker-entrypoint.s…"   4 days ago   Up 2 hours   3306/tcp, 33060/tcp                     distrib_db_1
+455383c8aaf4   distrib_app     "/usr/bin/dumb-init …"   4 days ago   Up 2 hours                                           distrib_app_1
+18b75193db78   distrib_proxy   "/opt/ts/bin/traffic…"   4 days ago   Up 2 hours   0.0.0.0:80->8080/tcp, :::80->8080/tcp   distrib_proxy_1
+586b3eb5af97   redis           "docker-entrypoint.s…"   4 days ago   Up 2 hours   6379/tcp  
+```
+
+In this case, we are interested in the `distrib_app_1` container. Let's `exec` into it using `docker exec -it distrib_app_1 bash`.
+
+Let's try making a request to the `GET /token` endpoint using curl:
+
+```bash
+└─$ docker exec -it distrib_app_1 bash
+inmate@455383c8aaf4:~/app$ curl -i -X POST --url "http://localhost:8000/login" -H "Content-Type: application/json" --data '{"email":{"email":1}, "password":{"password":1}}'
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Content-Security-Policy: default-src 'self'; img-src data: *; object-src 'none'; base-uri 'none'; frame-ancestors 'none'
+Cross-Origin-Opener-Policy: same-origin
+Content-Type: application/json; charset=utf-8
+Content-Length: 21
+ETag: W/"15-uFFjCr0SbbbFb/CsC0M2sF++swo"
+Set-Cookie: connect.sid=s%3AForqUI9QC1EH4IIG7ssnAddye3ZcLN1y.NYDgLr4jqh8UFtdOorml%2Bv2CFFhzHvZ3LQ8%2B5%2FnzTjI; Path=/; Expires=Mon, 12 Sep 2022 19:00:24 GMT; HttpOnly
+Date: Sun, 11 Sep 2022 19:00:24 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+{"message":"Success"}
+```
+
+```bash
+inmate@455383c8aaf4:~/app$ curl --url "http://localhost:8000/token" -H "Cookie: connect.sid=s%3AForqUI9QC1EH4IIG7ssnAddye3ZcLN1y.NYDgLr4jqh8UFtdOorml%2Bv2CFFhzHvZ3LQ8%2B5%2FnzTjI;"
+<!DOCTYPE html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><title>PALINDROME Portal</title><link href="/static/bootstrap.min.css" rel="stylesheet" type="text/css"><script defer src="/static/bootstrap.bundle.min.js"></script><link href="/static/main.css" rel="stylesheet"><script defer src="/static/particles.min.js"></script><script defer src="/static/main.js"></script></head><nav class="navbar navbar-expand-lg navbar-dark bg-dark"><button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse" id="navbarNav"><ul class="navbar-nav ms-auto me-auto mb-2 mb-lg-0"><li class="nav-item active"><a class="nav-link" href="/index">Home</a></li><li class="nav-item"><a class="nav-link" href="/token">Get Token</a></li><li class="nav-item"><a class="nav-link" href="/verify">Verify Token</a></li><li class="nav-item"><a class="nav-link" href="/report-issue">Report an Issue</a></li></ul></div></nav><div class="container my-5" id="app"><h1>PALINDROME Access Tokens</h1><p></p>To ensure secure communication between our agents, you will be asked to identify yourself with access tokens.<p>Welcome back, !</p></p><p>Your token is TISC{0:1:2:3:4:5:6:6:8:9}</p></p></div>
+```
+
+Woah woah woah, our (fake) flag is actually in the response! So it seems like a potential attack pattern would be to:
+- Using the `POST /do-report`, make a request to `GET /token`
+
+Let's go ahead and make a request to `POST /do-report` from within the docker container, while using that authenticated cookie.
+
+```bash
+inmate@455383c8aaf4:~/app$ curl -X POST --url "http://localhost:8000/do-report" -H "Cookie: connect.sid=s%3AForqUI9QC1EH4IIG7ssnAddye3ZcLN1y.NYDgLr4jqh8UFtdOorml%2Bv2CFFhzHvZ3LQ8%2B5%2FnzTjI;" -H "Content-Type: application/json" -d '{"url":"http://localhost:8000/token"}'
+OK
+```
+
+Huh.... we only get one `OK`, which is not exactly very useful. Let's look at the logs of the container:
+
+```
+└─$ docker logs --follow distrib_app_1
+[*] Listening on port 8000
+[INFO] Starting browser
+[*] Visiting http://localhost:8000/token
+[*] Done visiting http://localhost:8000/token
+
+```
+
+Okay, it seems like there was an attempt to visit the `GET /token` endpoint through a browser.
+
+Let's study the source code of the `doReportHandler` portion a little bit more, which we can find in `report.js`.
+
+```javascript
+const doReportHandler = async (req, res) => {
+
+    if (!browser) {
+        console.log('[INFO] Starting browser')
+        browser = await puppeteer.launch({
+            headless: false,
+            args: [
+                "--no-sandbox",
+                "--disable-background-networking",
+                "--disk-cache-dir=/dev/null",
+                "--disable-default-apps",
+                "--disable-extensions",
+                "--disable-desktop-notifications",
+                "--disable-gpu",
+                "--disable-sync",
+                "--disable-translate",
+                "--disable-dev-shm-usage",
+                "--hide-scrollbars",
+                "--metrics-recording-only",
+                "--mute-audio",
+                "--no-first-run",
+                "--safebrowsing-disable-auto-update",
+                "--window-size=1440,900",
+            ]
+        })
+    }
+
+    const url = req.body.url
+    if (
+        url === undefined ||
+        (!url.startsWith('http://') && !url.startsWith('https://'))
+    ) {
+        return res.status(400).send({ error: 'Invalid URL' })
+    }
+
+    try {
+        console.log(`[*] Visiting ${url}`)
+        await visit(url)
+        console.log(`[*] Done visiting ${url}`)
+        return res.sendStatus(200)
+    } catch (e) {
+        console.error(`[-] Error visiting ${url}: ${e.message}`)
+        return res.status(400).send({ error: e.message })
+    }
+}
+```
+
+Hmmm, a `puppeteer` browsing, which kind of suggests some potential Cross-Site Scripting exploit? But let's ignore this for now and focus on what `visit` is doing:
+
+```javascript
+const visit = async (url) => {
+    const ctx = await browser.createIncognitoBrowserContext()
+    const page = await ctx.newPage()
+
+    await page.goto(LOGIN_URL, { timeout: 5000, waitUntil: 'networkidle2' })
+    await page.waitForSelector('form')
+    await page.type('input[name=email]', process.env.EMAIL)
+    await page.type('input[name=password]', process.env.PASSWORD)
+    await page.click('button[type="submit"]')
+    await page.waitForTimeout(1000)
+
+    try {
+        await page.goto(url, { timeout: 5000, waitUntil: 'networkidle2' })
+        await page.waitForTimeout(1000)
+    } finally {
+        await page.close()
+        await ctx.close()
+    }
+}
+```
+
+Ahhhh, okay so to put it in layman terms, `report.js` is doing the following:
+- `visit` logs the browser into the application with the pre-defined credentials stored in environment variables as seen in the `docker-compose.yml` earlier.
+- This means that the browser visits the passed-in `url` from the context of an authenticated admin user when this is performed through the `POST /do-report` endpoint.
+
+Let's for now, focus trying to make a request to the `POST /do-report` endpoint. After some research I came across this [HTTP Request Smuggling vulnerability for nodejs](https://security.snyk.io/vuln/SNYK-ALPINE316-NODEJSCURRENT-2953122) and with more googling around I eventually came across this [CVE](https://lists.apache.org/thread/rc64lwbdgrkv674koc3zl1sljr9vwg21) for the Apache Traffic Server 9.1.0 (which turns out to be similar to [SEETF 2022's](https://ctftime.org/event/1543) flagportal revenge challenge).
+
+Okay, so it seems like this challenge wants us to perform a HTTP Request Smuggling attack in order to bypass the proxy whitelist (as defined in the `remap.config`) and make a request directly to the application container itself. 
