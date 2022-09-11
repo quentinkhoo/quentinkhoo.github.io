@@ -9,13 +9,31 @@
       <link>https://quentinkhoo.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 03 Jul 2022 15:55:11 +0800</lastBuildDate><atom:link href="https://quentinkhoo.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 12 Sep 2022 00:00:00 +0800</lastBuildDate><atom:link href="https://quentinkhoo.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>ctf</title>
       <link>https://quentinkhoo.github.io/categories/ctf/</link>
-      <pubDate>Sun, 03 Jul 2022 15:55:11 +0800</pubDate>
+      <pubDate>Mon, 12 Sep 2022 00:00:00 +0800</pubDate>
       
       <guid>https://quentinkhoo.github.io/categories/ctf/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tisc-2022</title>
+      <link>https://quentinkhoo.github.io/categories/tisc-2022/</link>
+      <pubDate>Mon, 12 Sep 2022 00:00:00 +0800</pubDate>
+      
+      <guid>https://quentinkhoo.github.io/categories/tisc-2022/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>writeup</title>
+      <link>https://quentinkhoo.github.io/categories/writeup/</link>
+      <pubDate>Mon, 12 Sep 2022 00:00:00 +0800</pubDate>
+      
+      <guid>https://quentinkhoo.github.io/categories/writeup/</guid>
       <description></description>
     </item>
     
@@ -25,15 +43,6 @@
       <pubDate>Sun, 03 Jul 2022 15:55:11 +0800</pubDate>
       
       <guid>https://quentinkhoo.github.io/categories/seetf-2022/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>writeup</title>
-      <link>https://quentinkhoo.github.io/categories/writeup/</link>
-      <pubDate>Sun, 03 Jul 2022 15:55:11 +0800</pubDate>
-      
-      <guid>https://quentinkhoo.github.io/categories/writeup/</guid>
       <description></description>
     </item>
     

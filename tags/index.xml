@@ -9,22 +9,94 @@
       <link>https://quentinkhoo.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 03 Jul 2022 15:55:11 +0800</lastBuildDate><atom:link href="https://quentinkhoo.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 12 Sep 2022 00:00:00 +0800</lastBuildDate><atom:link href="https://quentinkhoo.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>blockchain</title>
-      <link>https://quentinkhoo.github.io/tags/blockchain/</link>
-      <pubDate>Sun, 03 Jul 2022 15:55:11 +0800</pubDate>
+      <title>aws</title>
+      <link>https://quentinkhoo.github.io/tags/aws/</link>
+      <pubDate>Mon, 12 Sep 2022 00:00:00 +0800</pubDate>
       
-      <guid>https://quentinkhoo.github.io/tags/blockchain/</guid>
+      <guid>https://quentinkhoo.github.io/tags/aws/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>cloud</title>
+      <link>https://quentinkhoo.github.io/tags/cloud/</link>
+      <pubDate>Mon, 12 Sep 2022 00:00:00 +0800</pubDate>
+      
+      <guid>https://quentinkhoo.github.io/tags/cloud/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ctf</title>
       <link>https://quentinkhoo.github.io/tags/ctf/</link>
-      <pubDate>Sun, 03 Jul 2022 15:55:11 +0800</pubDate>
+      <pubDate>Mon, 12 Sep 2022 00:00:00 +0800</pubDate>
       
       <guid>https://quentinkhoo.github.io/tags/ctf/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>dynamodb</title>
+      <link>https://quentinkhoo.github.io/tags/dynamodb/</link>
+      <pubDate>Mon, 12 Sep 2022 00:00:00 +0800</pubDate>
+      
+      <guid>https://quentinkhoo.github.io/tags/dynamodb/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ec2</title>
+      <link>https://quentinkhoo.github.io/tags/ec2/</link>
+      <pubDate>Mon, 12 Sep 2022 00:00:00 +0800</pubDate>
+      
+      <guid>https://quentinkhoo.github.io/tags/ec2/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>lambda</title>
+      <link>https://quentinkhoo.github.io/tags/lambda/</link>
+      <pubDate>Mon, 12 Sep 2022 00:00:00 +0800</pubDate>
+      
+      <guid>https://quentinkhoo.github.io/tags/lambda/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rce</title>
+      <link>https://quentinkhoo.github.io/tags/rce/</link>
+      <pubDate>Mon, 12 Sep 2022 00:00:00 +0800</pubDate>
+      
+      <guid>https://quentinkhoo.github.io/tags/rce/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>s3</title>
+      <link>https://quentinkhoo.github.io/tags/s3/</link>
+      <pubDate>Mon, 12 Sep 2022 00:00:00 +0800</pubDate>
+      
+      <guid>https://quentinkhoo.github.io/tags/s3/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tisc-2022</title>
+      <link>https://quentinkhoo.github.io/tags/tisc-2022/</link>
+      <pubDate>Mon, 12 Sep 2022 00:00:00 +0800</pubDate>
+      
+      <guid>https://quentinkhoo.github.io/tags/tisc-2022/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>blockchain</title>
+      <link>https://quentinkhoo.github.io/tags/blockchain/</link>
+      <pubDate>Sun, 03 Jul 2022 15:55:11 +0800</pubDate>
+      
+      <guid>https://quentinkhoo.github.io/tags/blockchain/</guid>
       <description></description>
     </item>
     

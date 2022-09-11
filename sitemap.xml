@@ -2,25 +2,61 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://quentinkhoo.github.io/tags/aws/</loc>
+    <lastmod>2022-09-12T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://quentinkhoo.github.io/categories/</loc>
+    <lastmod>2022-09-12T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://quentinkhoo.github.io/tags/cloud/</loc>
+    <lastmod>2022-09-12T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://quentinkhoo.github.io/tags/ctf/</loc>
+    <lastmod>2022-09-12T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://quentinkhoo.github.io/categories/ctf/</loc>
+    <lastmod>2022-09-12T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://quentinkhoo.github.io/tags/dynamodb/</loc>
+    <lastmod>2022-09-12T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://quentinkhoo.github.io/tags/ec2/</loc>
+    <lastmod>2022-09-12T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://quentinkhoo.github.io/tags/lambda/</loc>
+    <lastmod>2022-09-12T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://quentinkhoo.github.io/posts/</loc>
+    <lastmod>2022-09-12T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://quentinkhoo.github.io/</loc>
+    <lastmod>2022-09-12T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://quentinkhoo.github.io/tags/rce/</loc>
+    <lastmod>2022-09-12T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://quentinkhoo.github.io/tags/s3/</loc>
+    <lastmod>2022-09-12T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://quentinkhoo.github.io/tags/</loc>
+    <lastmod>2022-09-12T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://quentinkhoo.github.io/posts/tisc-2022-cloud-cloudynekos/</loc>
+    <lastmod>2022-09-12T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://quentinkhoo.github.io/tags/tisc-2022/</loc>
+    <lastmod>2022-09-12T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://quentinkhoo.github.io/categories/tisc-2022/</loc>
+    <lastmod>2022-09-12T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://quentinkhoo.github.io/categories/writeup/</loc>
+    <lastmod>2022-09-12T00:00:00+08:00</lastmod>
+  </url><url>
     <loc>https://quentinkhoo.github.io/tags/blockchain/</loc>
     <lastmod>2022-07-03T15:55:11+08:00</lastmod>
   </url><url>
-    <loc>https://quentinkhoo.github.io/categories/</loc>
-    <lastmod>2022-07-03T15:55:11+08:00</lastmod>
-  </url><url>
-    <loc>https://quentinkhoo.github.io/tags/ctf/</loc>
-    <lastmod>2022-07-03T15:55:11+08:00</lastmod>
-  </url><url>
-    <loc>https://quentinkhoo.github.io/categories/ctf/</loc>
-    <lastmod>2022-07-03T15:55:11+08:00</lastmod>
-  </url><url>
-    <loc>https://quentinkhoo.github.io/posts/</loc>
-    <lastmod>2022-07-03T15:55:11+08:00</lastmod>
-  </url><url>
     <loc>https://quentinkhoo.github.io/tags/pseudorandomness/</loc>
-    <lastmod>2022-07-03T15:55:11+08:00</lastmod>
-  </url><url>
-    <loc>https://quentinkhoo.github.io/</loc>
     <lastmod>2022-07-03T15:55:11+08:00</lastmod>
   </url><url>
     <loc>https://quentinkhoo.github.io/tags/re-entrancy/</loc>
@@ -36,12 +72,6 @@
     <lastmod>2022-07-03T15:55:11+08:00</lastmod>
   </url><url>
     <loc>https://quentinkhoo.github.io/tags/smart-contracts/</loc>
-    <lastmod>2022-07-03T15:55:11+08:00</lastmod>
-  </url><url>
-    <loc>https://quentinkhoo.github.io/tags/</loc>
-    <lastmod>2022-07-03T15:55:11+08:00</lastmod>
-  </url><url>
-    <loc>https://quentinkhoo.github.io/categories/writeup/</loc>
     <lastmod>2022-07-03T15:55:11+08:00</lastmod>
   </url><url>
     <loc>https://quentinkhoo.github.io/posts/seetf-2022-smart-contract-rolls-royce/</loc>
