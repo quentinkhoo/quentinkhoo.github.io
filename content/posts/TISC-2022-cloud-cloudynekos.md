@@ -1,7 +1,7 @@
 ---
 title: "TISC 2022 Cloud Cloudynekos"
 destription: "A cloud challenge during TISC 2022 that required exploiting multiple insecurely configured AWS services"
-date: 2022-09-12T00:00:00+08:00
+date: 2022-09-12T00:04:00+08:00
 draft: false
 tags:
     - ctf
@@ -428,7 +428,7 @@ In addition, the lambda function that we create would have the `lambda_agent_dev
 The lambda function that we would attempt to create would contain the following arguments:
 - `--function-name`: We get the `{aws:username}` and then concatenate an arbitrary name like `-env` to the end of it.
 - `--role`: the role would be the `lambda_agent_development_role`
-- `--runetime`: we will create a javascript file and therefore use a runtime environment like `nodejs12.x`. 
+- `--runtime`: we will create a javascript file and therefore use a runtime environment like `nodejs12.x`. 
 - `--handler`: `index.handler`. an index.js file would be created and zipped as explained below
 - `--zip-file`: a zip file `function.zip` would be created containing an `index.js`, which contains the following piece of code:
 
