@@ -1,8 +1,8 @@
 ---
-title: "TISC 2022 Cloudynekos"
+title: "TISC 2022 Cloud Cloudynekos"
 destription: "A cloud challenge during TISC 2022 that required exploiting multiple insecurely configured AWS services"
-date: 2022-09-04T01:39:12+08:00
-draft: true
+date: 2022-09-12T00:00:00+08:00
+draft: false
 tags:
     - ctf
     - tisc-2022
@@ -23,9 +23,9 @@ categories:
 This was a Cloud challenge unlocked at level 4 that was part of the recent [TISC 2022](https://www.csit.gov.sg/events/tisc/tisc-2022) CTF organised by [CSIT](https://www.csit.gov.sg/). TISC 2022 was an individual CTF that is level-based and not exactly a typical jeopardy-style CTF, meaning that only 1 challenge is released at a time and only after you solve that 1 challenge do you unlock the next one. In this writeup, I will discuss my approach towards solving this particular cloud challenge.
 
 ## Introduction
-The challenge starts off by pointing us towards a  domain:
+The challenge starts off by pointing us towards a domain:
 `http://d20whnyjsgpc34.cloudfront.net`. Visiting the website shows you a couple of cute cat images `—ฅ/ᐠ. ̫ .ᐟ\ฅ —`
-![image](/images/posts/tisc-2022-level4-cloudfront-site.PNG)
+![cat-image](/images/posts/tisc-2022-level4-cloudfront-site.PNG)
 
 After I finished being distracted by those cats, I noticed the following note in the website source code comments:
 ```html
@@ -91,11 +91,11 @@ print(r.text)
 {"Message": "Welcome there agent! Use the credentials wisely! It should be live for the next 120 minutes! Our antivirus will wipe them out and the associated resources after the expected time usage.", "Access_Key": "AKIAQYDFBGMS6NCB2UGD", "Secret_Key": "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"}
 ```
 
-Turns out interacting with the API gateway with the custom header returns us a set of AWS credentials. Before we continue let's recap what we have encountered so far:
+Turns out interacting with the API gateway with the custom header returns us a set of AWS credentials. So let's go ahead and see what our provided AWS credentials is capable of
 
 
 ## Enumerating AWS Credentials Permissions
-When given a set of AWS credentials like this, one of the first things you would like to do is to see what kind of permissions it has access to. In this case I used [enumerate-iam](https://github.com/andresriancho/enumerate-iam) to do my first round of enumeration to see what kind of permissions do these set of credentials have access to.
+When given a set of AWS credentials like this, one of the first things you would like to do is to see what kind of permissions it has access to. In this case I used [enumerate-iam](https://github.com/andresriancho/enumerate-iam) to do my first round of enumeration to see what kind of permissions these set of credentials have access to.
 ```bash
 └─$ python3 enumerate-iam.py --access-key AKIAQYDFBGMS6NCB2UGD --secret-key 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
 [INFO] Starting permission enumeration for access-key-id "AKIAQYDFBGMS6NCB2UGD"
@@ -173,7 +173,8 @@ There were quite a lot of things to go through but lets focus on what's interest
     "MaxSessionDuration": 3600
 }
 ```
-Tools like `enumerate-iam` wouldn't be able to tell you if you are able to run commands like `aws iam-list-attached-role-policies` withwhereby an additional argument is required (`--role-name` in this case). When dealing with IAM roles, we generally want to see what kind of permissions it has by retrieving a list of policies attached to the role and then enumerating said policy for its permissions.
+Tools like `enumerate-iam` wouldn't be able to tell you if you are able to run commands like `aws iam-list-attached-role-policies`, whereby an additional argument is required (`--role-name` in this case). When dealing with IAM roles, we generally want to see what kind of permissions it has by retrieving a list of policies attached to the role and then enumerating said policies for its permissions.
+
 In short, we want to run 2 commands per AWS IAM role:
 1.  `aws iam list-attached-role-policies --role-name <role_name>`
 2.  `aws iam get-policy-version --policy-arn <policy_arn> --version-id <version_id>`
@@ -266,7 +267,7 @@ Woah, permissions to interact with the `dynamodb` service! How about `lambda_age
 
 Wow, run an ec2 instance!? But wait, before we carry on did you notice that in the `ec2_agent_role`, `IsDefaultVersion` is set to `true` but for `lambda_agent_development_role`, `IsDefaultVersion` is seto to `false`. What does this mean??
 
-In short, policies in AWS generally have a version tag, and normally it goes `v1`, `v2`, `v3`....etc. Quoting from the AWS documentation: 
+Policies in AWS generally have a version tag, and normally it goes `v1`, `v2`, `v3`....etc. Quoting from the AWS documentation: 
 `One of the versions of a managed policy is set as the default version. The policy's default version is the operative version—that is, it's the version that is in effect for all of the principal entities (users, user groups, and roles) that the managed policy is attached to.`
 
 Which means that we should enumerate out for the version that has `IsDefaultVersion` set to `true` to get the one in effect! Let's do that for `lambda_agent_development_role` and find a version that has that set
@@ -396,7 +397,8 @@ Alright we have additional information about these roles but, the question still
 Oh, so turns out we can create a lambda function and invoke it. Not only that but our lambda function can be created with the `lambda_agent_development_role`!
 
 Before we continue let's take a step back and look back on what we've uncovered so far:
-![image](/images/posts/tisc-2022-level4-diagram-1.jpg)
+
+![diagram-1](/images/posts/tisc-2022-level4-diagram-1.jpg)
 
 ## Abusing Lambda Functions
 Let's look back on our user's policy, specifically the lambda-related permissions:
@@ -569,7 +571,8 @@ def lambda_handler(event, context):
 
 Based on this hint, it seems like the next step is to actually create and run an EC2 instance! Now let's take a step back and see what we just did so far
 
-![image](../../static/images/posts/tisc-2022-level4-diagram-2.jpg)
+![diagram-2](/images/posts/tisc-2022-level4-diagram-2.jpg)
+
 
 (During the actual CTF I actually created a reverse shell into the temporary Lambda instance. It was unnecessary but I thought it was cool to point out that it is indeed possible to execute arbitary code on the Lambda instance, and create a reverse shell although what you can do on the instance is kind of limited and for the purpose of this CTF, you really only want the temporary AWS IAM keys).
 
@@ -814,7 +817,7 @@ And there we have it! Our flag is in the `flag_db` table!
 
 Let's summarise our whole journey on how we uncovered the flag:
 
-![image](../../static/images/posts/tisc-2022-level4-diagram-3.jpg)
+![diagram-3](/images/posts/tisc-2022-level4-diagram-3.jpg)
 
 ## Final Words
 If you made it this far, thank you for reading my write-up for this cloud challenge `cloudynekos` as part of TISC 2022! It was definitely a fun journey solving this cloud challenge and I definitely learned much more about how scary a set of leaked AWS IAM Credentials can quickly become, and also more importantly, how to abuse them as a pentester :)
