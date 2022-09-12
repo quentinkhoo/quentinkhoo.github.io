@@ -11,11 +11,11 @@
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Mon, 12 Sep 2022 00:04:00 +0800</lastBuildDate><atom:link href="https://quentinkhoo.github.io/tags/rce/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>TISC 2022 Cloud Cloudynekos</title>
-      <link>https://quentinkhoo.github.io/posts/tisc-2022-cloud-cloudynekos/</link>
+      <title>TISC 2022 Level 4B - Cloudynekos</title>
+      <link>https://quentinkhoo.github.io/posts/tisc-2022-level4b-cloudynekos/</link>
       <pubDate>Mon, 12 Sep 2022 00:04:00 +0800</pubDate>
       
-      <guid>https://quentinkhoo.github.io/posts/tisc-2022-cloud-cloudynekos/</guid>
+      <guid>https://quentinkhoo.github.io/posts/tisc-2022-level4b-cloudynekos/</guid>
       <description>CloudyNekos Challenge Description This was a Cloud challenge unlocked at level 4 that was part of the recent TISC 2022 CTF organised by CSIT. TISC 2022 was an individual CTF that is level-based and not exactly a typical jeopardy-style CTF, meaning that only 1 challenge is released at a time and only after you solve that 1 challenge do you unlock the next one. In this writeup, I will discuss my approach towards solving this particular cloud challenge.</description>
     </item>
     
