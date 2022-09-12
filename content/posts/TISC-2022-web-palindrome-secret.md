@@ -435,3 +435,4 @@ Ahhhh, okay so to put it in layman terms, `report.js` is doing the following:
 Let's for now, focus trying to make a request to the `POST /do-report` endpoint. After some research I came across this [HTTP Request Smuggling vulnerability for nodejs](https://security.snyk.io/vuln/SNYK-ALPINE316-NODEJSCURRENT-2953122) and with more googling around I eventually came across this [CVE](https://lists.apache.org/thread/rc64lwbdgrkv674koc3zl1sljr9vwg21) for the Apache Traffic Server 9.1.0 (which turns out to be similar to [SEETF 2022's](https://ctftime.org/event/1543) flagportal revenge challenge).
 
 Okay, so it seems like this challenge wants us to perform a HTTP Request Smuggling attack in order to bypass the proxy whitelist (as defined in the `remap.config`) and make a request directly to the application container itself. 
+
