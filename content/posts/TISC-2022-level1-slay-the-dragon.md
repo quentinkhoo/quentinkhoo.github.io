@@ -17,8 +17,35 @@ categories:
 ## Slay the Dragon Challenge Description
 This was a pwn challenge and also the first challenge of the recent [TISC 2022](https://www.csit.gov.sg/events/tisc/tisc-2022) CTF organised by [CSIT](https://www.csit.gov.sg/). TISC 2022 was an individual CTF that is level-based and not exactly a typical jeopardy-style CTF, meaning that only 1 challenge is released at a time and only after you solve that 1 challenge do you unlock the next one. In this writeup, I will discuss my approach towards solving this particular pwn challenge.
 
+```
+DESCRIPTION
+Topic: Pwn
+
+The recently launched online RPG game "Slay The Dragon" has been hot topic in the online gaming community of late, due to a seemingly impossible final boss. Amongst the multiple tirades against the forementioned boss, much controversy has been brewing due to rumors of the game being a recruitment campaign for PALINDROME, the cybercriminal organisation responsible for recent cyberattacks on Singapore's critical infrastructure.
+
+You are tasked to find a way to beat (hack) the game and provide us with the flag (a string in the format TISC{xxx}) that would be displayed after beating the final boss. Your success is critical to ensure the safety of Singapore's cyberspace, as it would allow us to send more undercover operatives to infiltrate PALINDROME.
+
+To aid in your efforts, we have managed to obtain the source code of the game for you. We look forward to your success!
+
+You will be provided with the following:
+
+1. Source code for game client/server (Python 3.10.x)
+2. Game client executable (Compiled with PyInstaller)
+- Highly recommended that you run it in a modern terminal (not cmd.exe) for the optimal experience:
+- Windows: Windows Terminal or ConEmu recommended.
+- Linux: the default terminal should be fine.
+
+Note: If you'd like to make any modifications to the client, we'd strongly suggest modifying the source code and running it directly. The game client executable has been provided purely for your convenience in checking out the game.
+
+Host: chal00bq3ouweqtzva9xcobep6spl5m75fucey.ctf.sg
+Port: 18261
+
+ATTACHED FILES
+slay_the_dragon.zip
+```
+
 ## Introduction
-Although the category was a `pwn` challenge, I would consider this more of a "source code review" challenge and spotting the vulnerability to be exploited. This was achieved by abusing the lack of proper server side validation from client side input.
+Although the category was a `pwn` challenge, I would consider this more of a "source code review" challenge and spotting the vulnerability to be exploited. This was achieved by abusing the lack of proper server side validation from client side input. The provided source code can be found [here](files/posts/slay_the_dragon.zip).
 
 There were 3 bosses residing on the actual server, of which we had to defeat all 3 bosses in order to unlock the flag. We know this is the case by inspecting the `server/service/batttleservice.py` file, under the `__handle_battle_win(self)` function:
 

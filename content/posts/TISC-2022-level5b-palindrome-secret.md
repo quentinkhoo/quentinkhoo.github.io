@@ -24,8 +24,24 @@ categories:
 ## Palindrome's Secret Challenge Description
 This was a Web challenge unlocked at level 5 that was part of the recent [TISC 2022](https://www.csit.gov.sg/events/tisc/tisc-2022) CTF organised by [CSIT](https://www.csit.gov.sg/). TISC 2022 was an individual CTF that is level-based and not exactly a typical jeopardy-style CTF, meaning that only 1 challenge is released at a time and only after you solve that 1 challenge do you unlock the next one. In this writeup, I will discuss my approach towards solving this particular web challenge.
 
+```
+DESCRIPTION
+Topic: Web Exploitation
+
+We have discovered PALINDROME's secret portal, but we can't seem to gain access. Thankfully, we managed to steal the source code - can you take a look?
+
+Gaining access to the portal and stealing the PALINDROME admin's access token will greatly aid our efforts to curb PALINDROME's ongoing attack.
+
+http://chal010yo0os7fxmu2rhdrybsdiwsdqxgjdfuh.ctf.sg:23627/index
+
+*NOTE*: Solving this challenge unlocks level 6!
+
+ATTACHED FILES
+palindrome-secret-distrib.zip
+```
+
 ## Introduction
-Palindrome's Secret was an interesting web challenge that had 3 parts to it, an SQL Injection through parameterized queries, [HTTP Request Smuggling](https://portswigger.net/web-security/request-smuggling) and finally a [Dangling Markup Injection](https://portswigger.net/web-security/cross-site-scripting/dangling-markup). IMO, the HTTP Request Smuggling exploit was the most interesting hack that I learned through this CTF and definitely worth a writeup.
+Palindrome's Secret was an interesting web challenge that had 3 parts to it, an SQL Injection through parameterized queries, [HTTP Request Smuggling](https://portswigger.net/web-security/request-smuggling) and finally a [Dangling Markup Injection](https://portswigger.net/web-security/cross-site-scripting/dangling-markup). IMO, the HTTP Request Smuggling exploit was the most interesting hack that I learned through this CTF and definitely worth a writeup. The provided source code can be found [here](files/posts/tisc2022/palindrome-secret-distrib.zip).
 
 ## Studying the Web Application & Source Code
 If we analyzed the `docker-compose.yml` file for the web application, we would notice that there are 4 services in total.

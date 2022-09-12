@@ -22,6 +22,19 @@ categories:
 ## CloudyNekos Challenge Description
 This was a Cloud challenge unlocked at level 4 that was part of the recent [TISC 2022](https://www.csit.gov.sg/events/tisc/tisc-2022) CTF organised by [CSIT](https://www.csit.gov.sg/). TISC 2022 was an individual CTF that is level-based and not exactly a typical jeopardy-style CTF, meaning that only 1 challenge is released at a time and only after you solve that 1 challenge do you unlock the next one. In this writeup, I will discuss my approach towards solving this particular cloud challenge.
 
+```
+DESCRIPTION
+Topic: Cloud
+
+We have received intelligence that Palindrome has started a global computing infrastructure to be made available to its agent to spin up C2 instances. They relied on Cloud Service Providers like AWS to provide computing resources for its agents. They have their own custom built access system e-service portal that generate short-lived credentials for their agents to use their computing infrastructure. It was said that their access system e-service was diguised as a blog site.
+
+We need your help to access their computing resources and exfiltrate any meaningful intelligence for us.
+
+Start here: http://d20whnyjsgpc34.cloudfront.net
+
+*NOTE*: Solving challenge 4B allows you to complete level 4, but unlocks challenge 5B only!
+```
+
 ## Introduction
 The challenge starts off by pointing us towards a domain:
 `http://d20whnyjsgpc34.cloudfront.net`. Visiting the website shows you a couple of cute cat images `—ฅ/ᐠ. ̫ .ᐟ\ฅ —`
