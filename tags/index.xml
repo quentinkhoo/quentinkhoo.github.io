@@ -182,20 +182,38 @@
     </item>
     
     <item>
-      <title>pwn</title>
-      <link>https://quentinkhoo.github.io/tags/pwn/</link>
-      <pubDate>Mon, 12 Sep 2022 00:01:00 +0800</pubDate>
+      <title>cryptography</title>
+      <link>https://quentinkhoo.github.io/tags/cryptography/</link>
+      <pubDate>Mon, 12 Sep 2022 00:02:00 +0800</pubDate>
       
-      <guid>https://quentinkhoo.github.io/tags/pwn/</guid>
+      <guid>https://quentinkhoo.github.io/tags/cryptography/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>linear-algebra</title>
+      <link>https://quentinkhoo.github.io/tags/linear-algebra/</link>
+      <pubDate>Mon, 12 Sep 2022 00:02:00 +0800</pubDate>
+      
+      <guid>https://quentinkhoo.github.io/tags/linear-algebra/</guid>
       <description></description>
     </item>
     
     <item>
       <title>python</title>
       <link>https://quentinkhoo.github.io/tags/python/</link>
-      <pubDate>Mon, 12 Sep 2022 00:01:00 +0800</pubDate>
+      <pubDate>Mon, 12 Sep 2022 00:02:00 +0800</pubDate>
       
       <guid>https://quentinkhoo.github.io/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>pwn</title>
+      <link>https://quentinkhoo.github.io/tags/pwn/</link>
+      <pubDate>Mon, 12 Sep 2022 00:01:00 +0800</pubDate>
+      
+      <guid>https://quentinkhoo.github.io/tags/pwn/</guid>
       <description></description>
     </item>
     

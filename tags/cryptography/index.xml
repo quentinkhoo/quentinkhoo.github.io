@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>cryptography on Quentin</title>
+    <link>https://quentinkhoo.github.io/tags/cryptography/</link>
+    <description>Recent content in cryptography on Quentin</description>
+    <image>
+      <url>https://quentinkhoo.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://quentinkhoo.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Mon, 12 Sep 2022 00:02:00 +0800</lastBuildDate><atom:link href="https://quentinkhoo.github.io/tags/cryptography/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>TISC 2022 Level 2 - Leaky Matrices</title>
+      <link>https://quentinkhoo.github.io/posts/tisc-2022-level2-leaky-matrices/</link>
+      <pubDate>Mon, 12 Sep 2022 00:02:00 +0800</pubDate>
+      
+      <guid>https://quentinkhoo.github.io/posts/tisc-2022-level2-leaky-matrices/</guid>
+      <description>Leaky Matrices Challenge Description 1 2 3 4 5 6 7 8 9 DESCRIPTION Topic: Cryptography Looks like PALINDROME implemented their own authentication protocol and cryptosystem to provide a secure handshake between any 2 services or devices. It does not look secure to us, can you take a look at what we have got? Try to fool their authentication service: nc chal00bq3ouweqtzva9xcobep6spl5m75fucey.ctf.sg 56765 ATTACHED FILES 2WKV_Whitepaper.pdf Introduction We&amp;rsquo;re given a PDF file that describes an (in)secure Authentication Scheme and our goal is to break the authentication scheme.</description>
+    </item>
+    
+  </channel>
+</rss>
