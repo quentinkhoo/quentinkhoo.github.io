@@ -2,7 +2,7 @@
 title: "TISC 2022 Level 2 - Leaky Matrices"
 destription: "A cryptography challenge during TISC 2022"
 date: 2022-09-12T00:02:00+08:00
-draft: true
+draft: false
 tags:
     - ctf
     - tisc-2022
@@ -55,7 +55,7 @@ def strtovec(s, rows=8, cols=1):
 	return np.fromiter(list(s), dtype="int").reshape(rows, cols)
 
 def win():
-	prompt(f"Here is your flag: penis")
+	prompt("Here is your flag: TISC{FAKE_FLAG}")
 
 if __name__ == "__main__":
 	sysout(banner)
@@ -93,3 +93,56 @@ In short, the challenge can be rephrased into a linear algebra question as such:
 
 If you're familiar with linear algebra, you might be familiar with the concept of the [identity matrix](https://en.wikipedia.org/wiki/Identity_matrix), which has a property that if you use take any n*n matrix M and multiply it with the identity Matrix of the same n\*n size I, you would get back M. And this is the exact property we would be looking to exploit in this challenge!
 
+Let's go ahead and code the solution out! :)
+
+```python
+import pwn
+import numpy as np
+
+def strtovec(s, rows=8, cols=1):
+    return np.fromiter(list(s), dtype="int").reshape(rows, cols)
+
+def vectostr(v):
+	return "".join(map(str, v.reshape(-1))).replace(" ", "").replace("[", "").replace("]", "")
+
+conn = pwn.remote("chal00bq3ouweqtzva9xcobep6spl5m75fucey.ctf.sg",56765)
+
+payload = ['0', '0', '0', '0', '0', '0', '0', '0']
+secret_matrix = []
+
+for i in range(8):
+    conn.recvuntil(b"<-- ")
+    matrix = payload.copy()
+    matrix[i] = '1'
+    matrix_str = ''.join(matrix)
+    conn.send(matrix_str.encode() + b"\n")
+    response = conn.recvline().decode("utf-8")
+    result = response.split()[-1]
+    matrix_col = []
+    for j in range(8):
+        matrix_col.append(result[j])
+    secret_matrix.append(matrix_col)
+
+secret_matrix = np.flipud(np.rot90(np.matrix(secret_matrix, dtype="int"), k=1, axes=(0,1)))
+
+for i in range(8):
+    response = conn.recvuntil(b"<-- ").decode()
+    challenge = response.split("-->")[-1].split()[0]
+    challenge_vector = strtovec(challenge)
+    answer_vec = (secret_matrix @ challenge_vector) & 1
+    answer_str = vectostr(answer_vec)
+    conn.send(answer_str.encode() + b"\n")
+
+conn.interactive()
+```
+
+And eventually, we get the flag:
+
+```bash
+========================
+All challenges passed :)
+========================
+=================================================================
+Here is your flag: TISC{d0N7_R0lL_Ur_0wN_cRyp70_7a25ee4d777cc6e9}
+=================================================================
+```
