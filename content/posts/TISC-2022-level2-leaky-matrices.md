@@ -16,6 +16,7 @@ categories:
 ---
 
 ## Leaky Matrices Challenge Description
+This was a cryptography challenge unlocked at level 2 that was part of the recent [TISC 2022](https://www.csit.gov.sg/events/tisc/tisc-2022) CTF organised by [CSIT](https://www.csit.gov.sg/). TISC 2022 was an individual CTF that is level-based and not exactly a typical jeopardy-style CTF, meaning that only 1 challenge is released at a time and only after you solve that 1 challenge do you unlock the next one. In this writeup, I will discuss my approach towards solving this particular cryptography challenge.
 
 ```
 DESCRIPTION
@@ -91,7 +92,12 @@ In short, the challenge can be rephrased into a linear algebra question as such:
 
 "Given a hidden 8\*8 matrix M1 and an oracle that allows inputting an 8\*8 matrix M2, returning the result `(M1 * M2) AND 1`, retrieve the hidden 8\*8 matrix M".
 
-If you're familiar with linear algebra, you might be familiar with the concept of the [identity matrix](https://en.wikipedia.org/wiki/Identity_matrix), which has a property that if you use take any n*n matrix M and multiply it with the identity Matrix of the same n\*n size I, you would get back M. And this is the exact property we would be looking to exploit in this challenge!
+If you're familiar with linear algebra, you might be familiar with the concept of the [identity matrix](https://en.wikipedia.org/wiki/Identity_matrix), which has a property that if you use take any n*n matrix M and multiply it with the Identity Matrix of the same n\*n size I, you would get back M. And this is the exact property we would be looking to exploit in this challenge!
+
+Our approach is as follows:
+1. Retrieve back the original 8\*8 matrix M1 using the Identity Matrix I
+2. We can input I as a query by sending in `10000000`, `01000000`, `00100000`... to the oracle.
+3. Once we form back the original M1 matrix, we can use it to calculate out the challenge responses using matrix multiplication.
 
 Let's go ahead and code the solution out! :)
 
