@@ -30,7 +30,7 @@ ATTACHED FILES
 ```
 
 ## Introduction
-We're given a [PDF file](files/posts/2WKV_Whitepaper.pdf) that describes an (in)secure Authentication Scheme and our goal is to break the authentication scheme. In the PDF file, we can find the source code for running the authentication scheme described:
+We're given a [PDF file](https://github.com/quentinkhoo/quentinkhoo.github.io/blob/main/static/files/posts/tisc2022/2WKV_Whitepaper.pdf) that describes an (in)secure Authentication Scheme and our goal is to break the authentication scheme. In the PDF file, we can find the source code for running the authentication scheme described:
 
 ```python
 import sys

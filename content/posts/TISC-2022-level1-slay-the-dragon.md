@@ -45,7 +45,7 @@ slay_the_dragon.zip
 ```
 
 ## Introduction
-Although the category was a `pwn` challenge, I would consider this more of a "source code review" challenge and spotting the vulnerability to be exploited. This was achieved by abusing the lack of proper server side validation from client side input. The provided source code can be found [here](files/posts/slay_the_dragon.zip).
+Although the category was a `pwn` challenge, I would consider this more of a "source code review" challenge and spotting the vulnerability to be exploited. This was achieved by abusing the lack of proper server side validation from client side input. The provided source code can be found [here](https://github.com/quentinkhoo/quentinkhoo.github.io/blob/main/static/files/posts/tisc2022/slay_the_dragon.zip).
 
 There were 3 bosses residing on the actual server, of which we had to defeat all 3 bosses in order to unlock the flag. We know this is the case by inspecting the `server/service/batttleservice.py` file, under the `__handle_battle_win(self)` function:
 
