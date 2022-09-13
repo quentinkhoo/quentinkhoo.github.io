@@ -41,7 +41,7 @@ palindrome-secret-distrib.zip
 ```
 
 ## Introduction
-Palindrome's Secret was an interesting web challenge that had 3 parts to it, an SQL Injection through parameterized queries, [HTTP Request Smuggling](https://portswigger.net/web-security/request-smuggling) and finally a [Dangling Markup Injection](https://portswigger.net/web-security/cross-site-scripting/dangling-markup). IMO, the HTTP Request Smuggling exploit was the most interesting hack that I learned through this CTF and definitely worth a writeup. The provided source code can be found [here](https://github.com/quentinkhoo/quentinkhoo.github.io/blob/main/static/files/posts/tisc2022/palindrome-secret-distrib.zip).
+Palindrome's Secret was an interesting web challenge that had 3 parts to it, an SQL Injection through parameterized queries, [HTTP Request Smuggling](https://portswigger.net/web-security/request-smuggling) and finally a [Dangling Markup Injection](https://portswigger.net/web-security/cross-site-scripting/dangling-markup). IMO, the HTTP Request Smuggling exploit was the most interesting hack that I learned through this CTF and definitely worth a writeup. The provided source code can be found [here](https://github.com/quentinkhoo/quentinkhoo.github.io/raw/main/static/files/posts/tisc2022/palindrome-secret-distrib.zip).
 
 ## Studying the Web Application & Source Code
 If we analyzed the `docker-compose.yml` file for the web application, we would notice that there are 4 services in total.
