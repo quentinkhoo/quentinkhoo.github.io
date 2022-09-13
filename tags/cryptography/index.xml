@@ -16,7 +16,7 @@
       <pubDate>Mon, 12 Sep 2022 00:02:00 +0800</pubDate>
       
       <guid>https://quentinkhoo.github.io/posts/tisc-2022-level2-leaky-matrices/</guid>
-      <description>Leaky Matrices Challenge Description 1 2 3 4 5 6 7 8 9 DESCRIPTION Topic: Cryptography Looks like PALINDROME implemented their own authentication protocol and cryptosystem to provide a secure handshake between any 2 services or devices. It does not look secure to us, can you take a look at what we have got? Try to fool their authentication service: nc chal00bq3ouweqtzva9xcobep6spl5m75fucey.ctf.sg 56765 ATTACHED FILES 2WKV_Whitepaper.pdf Introduction We&amp;rsquo;re given a PDF file that describes an (in)secure Authentication Scheme and our goal is to break the authentication scheme.</description>
+      <description>Leaky Matrices Challenge Description This was a cryptography challenge unlocked at level 2 that was part of the recent TISC 2022 CTF organised by CSIT. TISC 2022 was an individual CTF that is level-based and not exactly a typical jeopardy-style CTF, meaning that only 1 challenge is released at a time and only after you solve that 1 challenge do you unlock the next one. In this writeup, I will discuss my approach towards solving this particular cryptography challenge.</description>
     </item>
     
   </channel>
