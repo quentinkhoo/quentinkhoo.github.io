@@ -21,7 +21,7 @@ categories:
     - tisc-2022
 ---
 
-## Leaky Matrices Challenge Description
+## Patient0 Challenge Description
 This was a forensics challenge unlocked at level 3 that was part of the recent [TISC 2022](https://www.csit.gov.sg/events/tisc/tisc-2022) CTF organised by [CSIT](https://www.csit.gov.sg/). TISC 2022 was an individual CTF that is level-based and not exactly a typical jeopardy-style CTF, meaning that only 1 challenge is released at a time and only after you solve that 1 challenge do you unlock the next one. In this writeup, I will discuss my approach towards solving this particular forensics challenge.
 
 ## Part 1
@@ -82,39 +82,39 @@ Let's focus on the `broken.pdf` first. Opening up we see the following:
 
 Hmmm, looks like `BPB` is a clue. After some googling, turns out BPB stands for `BIOS Parameter Block`. The following tables (referenced from [here](http://ntfs.com/ntfs-partition-boot-sector.htm)) describes the data fields and its respective offset:
 
-| Byte Offset | Field Length | Field Name |
-| --- | --- | --- |
-|0x00 | 3 bytes | Jump Instruction |
-|0x03 | LONGLONG | OEM ID |
-|0x0B | 25 bytes | BPB |
-|0x24 | 48 bytes | Extended BPB |
-|0x54 | 426 bytes | Bootstrap Code |
-|0x01FE | WORD | End of Sector Marker |
+| Byte Offset | Field Length | Field Name           |
+| ----------- | ------------ | -------------------- |
+| 0x00        | 3 bytes      | Jump Instruction     |
+| 0x03        | LONGLONG     | OEM ID               |
+| 0x0B        | 25 bytes     | BPB                  |
+| 0x24        | 48 bytes     | Extended BPB         |
+| 0x54        | 426 bytes    | Bootstrap Code       |
+| 0x01FE      | WORD         | End of Sector Marker |
 
 Ahhh we can see the BPB and Extended BPB starts at `0x0B` and `0x24` respectively, spanning from `0x0B - 0x53`. Let's take a look at this range of bytes and what do they mean:
 
 | Byte Offset | Field Length | Sample Value       | Field Name                                   |
-|:-----------:|:------------:|--------------------|----------------------------------------------|
-|     0x0B    |     WORD     | 0x0002             | Bytes Per Sector                             |
-|     0x0D    |     BYTE     | 0x08               | Sectors Per Cluster                          |
-|     0x0E    |     WORD     | 0x0000             | Reserved Sectors                             |
-|     0x10    |    3 BYTES   | 0x000000           | always 0                                     |
-|     0x13    |     WORD     | 0x0000             | not used by NTFS                             |
-|     0x15    |     BYTE     | 0xF8               | Media Descriptor                             |
-|     0x16    |     WORD     | 0x0000             | always 0                                     |
-|     0x18    |     WORD     | 0x3F00             | Sectors Per Track                            |
-|     0x1A    |     WORD     | 0xFF00             | Number Of Heads                              |
-|     0x1C    |     DWORD    | 0x3F000000         | Hidden Sectors                               |
-|     0x20    |     DWORD    | 0x00000000         | not used by NTFS                             |
-|     0x24    |     DWORD    | 0x80008000         | not used by NTFS                             |
-|     0x28    |   LONGLONG   | 0x4AF57F0000000000 | Total Sectors                                |
-|     0x30    |   LONGLONG   | 0x0400000000000000 | Logical Cluster Number for the file $MFT     |
-|     0x38    |   LONGLONG   | 0x54FF070000000000 | Logical Cluster Number for the file $MFTMirr |
-|     0x40    |     DWORD    | 0xF6000000         | Clusters Per File Record Segment             |
-|     0x44    |     BYTE     | 0x01               | Clusters Per Index Buffer                    |
-|     0x45    |    3 BYTES   | 0x000000           | not used by NTFS                             |
-|     0x48    |   LONGLONG   | 0x14A51B74C91B741C | Volume Serial Number                         |
-|     0x50    |     DWORD    | 0x00000000         | Checksum                                     |
+| :---------: | :----------: | ------------------ | -------------------------------------------- |
+|    0x0B     |     WORD     | 0x0002             | Bytes Per Sector                             |
+|    0x0D     |     BYTE     | 0x08               | Sectors Per Cluster                          |
+|    0x0E     |     WORD     | 0x0000             | Reserved Sectors                             |
+|    0x10     |   3 BYTES    | 0x000000           | always 0                                     |
+|    0x13     |     WORD     | 0x0000             | not used by NTFS                             |
+|    0x15     |     BYTE     | 0xF8               | Media Descriptor                             |
+|    0x16     |     WORD     | 0x0000             | always 0                                     |
+|    0x18     |     WORD     | 0x3F00             | Sectors Per Track                            |
+|    0x1A     |     WORD     | 0xFF00             | Number Of Heads                              |
+|    0x1C     |    DWORD     | 0x3F000000         | Hidden Sectors                               |
+|    0x20     |    DWORD     | 0x00000000         | not used by NTFS                             |
+|    0x24     |    DWORD     | 0x80008000         | not used by NTFS                             |
+|    0x28     |   LONGLONG   | 0x4AF57F0000000000 | Total Sectors                                |
+|    0x30     |   LONGLONG   | 0x0400000000000000 | Logical Cluster Number for the file $MFT     |
+|    0x38     |   LONGLONG   | 0x54FF070000000000 | Logical Cluster Number for the file $MFTMirr |
+|    0x40     |    DWORD     | 0xF6000000         | Clusters Per File Record Segment             |
+|    0x44     |     BYTE     | 0x01               | Clusters Per Index Buffer                    |
+|    0x45     |   3 BYTES    | 0x000000           | not used by NTFS                             |
+|    0x48     |   LONGLONG   | 0x14A51B74C91B741C | Volume Serial Number                         |
+|    0x50     |    DWORD     | 0x00000000         | Checksum                                     |
 
 Hmm, seems like there's an 8 bytes worth of data `not used by NTFS` from `0x20 - 0x27`. Let's investigate this piece of data in a hex editor:
 
